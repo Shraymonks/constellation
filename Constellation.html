@@ -5,25 +5,25 @@
 <body></body>
 
 <template name="lobby">
-	<h1>Player Lobby</h1>
-	<input type="button" value="Create Game" />
-	<ul>
-		{{#each games}}
-		<li>
-		Game ID: {{_id}} <button class="join" data-id="{{_id}}">Join</button>
-		</li>
-		{{/each}}
-	</ul>
+    <h1>Player Lobby</h1>
+    <input type="button" class="createGame" value="Create Game" />
+    <ul>
+        {{#each games}}
+        <li>
+        Game ID: {{_id}} <button class="join" data-id="{{_id}}">Join</button>
+        </li>
+        {{/each}}
+    </ul>
 </template>
 
 <template name="gameBoard">
-	New Game
+    <h1>New Game</h1>
 
-	{{#each players}}
-		Player Name: {{_id}}
-	{{/each}}
+    {{#each players}}
+        <li>Player Name: {{_id}}</li>
+    {{/each}}
 
-	<br>
-	<button class="exit-game">Exit Game</button>
+    <br>
+    <button class="exit-game">Exit Game</button>
 </template>
 
