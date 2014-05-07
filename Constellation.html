@@ -10,7 +10,7 @@
 	<ul>
 		{{#each games}}
 		<li>
-		Game ID: {{_id}} <button class="join">Join</button>
+		Game ID: {{_id}} <button class="join" data-id="{{_id}}">Join</button>
 		</li>
 		{{/each}}
 	</ul>
@@ -26,3 +26,4 @@
 	<br>
 	<button class="exit-game">Exit Game</button>
 </template>
+

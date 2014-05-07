@@ -1,18 +1,30 @@
-Meteor.subscribe("games");
-
 Template.lobby.events({
 	'click input': function() {
-		var gameId = Games.insert({
+		var newGame = {
 			players: 1
-		});
+		},
 
-		Meteor.session.set('gameId', gameId);
+		Meteor.call('startGame', Session.get('currentPlayer'));
+
+		gameId = Games.insert(newGame);
+		Session.set('currentGame', gameId);
+		Router.go('/game/' + gameId);
 
 		console.log("Creating a new Game", gameId);
 	},
 	'click .join': function(e) {
-		console.log("Joining game ", e);
-		Router.go('/game');
+		// Find out the id of the game fromt he DOM.
+		var id = $(e.currentTarget).data('id');
+
+		if (id) {
+			Session.set('currentGame', id);
+			Games.update(id, {$inc: {players: 1}});
+			Router.go('/game/' + id);
+
+			console.log("Joining game ", e);
+		} else { // ERROR: no id found from DOM.
+			console.log("no id found");
+		}
 	}
 });
 
@@ -20,19 +32,39 @@ Template.lobby.games = function() {
 	return Games.find({}).fetch();
 }
 
+/*
+* Game Board handlers
+*/
+
 Template.gameBoard.events({
 	'click .exit-game': function() {
+		// Do a player decrement. End the game if there are no more players.
+		Games.update(Session.get('currentGame'), {$inc: {players: -1}});
+
 		Router.go('/');
 	}
 });
 
+Template.gameBoard.players
+
 // Initialize game state
 
 Meteor.startup(function() {
-	console.log("All loaded");
+	Deps.autorun(function() {
+		Meteor.subscribe("games");
+	});
+
+	// Create a player ID
+	var playerId = Players.insert({});
+
+	Session.set("currentPlayer", playerId);
+	console.log("All loaded.");
 });
 
 console.log("Running this code");
+
+
+// Auxillary Code
 
 function logRenders () {
 	_.each(Template, function (template, name) {
