@@ -2,12 +2,27 @@
   <title>Constellation</title>
 </head>
 
-<body>
-  {{> hello}}
-</body>
+<body></body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="lobby">
+	<h1>Player Lobby</h1>
+	<input type="button" value="Create Game" />
+	<ul>
+		{{#each games}}
+		<li>
+		Game ID: {{_id}} <button class="join">Join</button>
+		</li>
+		{{/each}}
+	</ul>
+</template>
+
+<template name="gameBoard">
+	New Game
+
+	{{#each players}}
+		Player Name: {{_id}}
+	{{/each}}
+
+	<br>
+	<button class="exit-game">Exit Game</button>
 </template>
