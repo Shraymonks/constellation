@@ -26,6 +26,9 @@ Template.lobby.events({
         } else { // ERROR: no id found from DOM.
             console.log("no id found");
         }
+    },
+    'click .flushDb': function() {
+        Meteor.call('flush');
     }
 });
 

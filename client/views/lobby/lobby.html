@@ -1,0 +1,12 @@
+<template name="lobby">
+    <p>Lobby</p>
+    <button class="btn btn-default createGame">Create Game</button>
+    <ul>
+        {{#each games}}
+        <li>
+        Game ID: {{_id}} <button class="btn btn-default  join" data-id="{{_id}}">Join</button>
+        </li>
+        {{/each}}
+    </ul>
+    <button class="btn btn-default flushDb">FlushDb</button>
+</template>

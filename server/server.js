@@ -83,6 +83,19 @@ Meteor.methods({
      */
     play: function(opts) {
 
+    },
+
+
+
+    /**
+     * DEVELOPER FUNCTION: Flushes the player and game database.
+     * 
+     */
+    flush: function() {
+    	Games.remove({});
+    	Players.remove({});
+    	
+    	return true;
     }
 });
 
@@ -100,6 +113,7 @@ startGame = function(gameId) {
         Games.update(gameId, {$set: {status: 'active'}});
 
         var game = Match.getGameInstance(gameId);
+        game.start();
 
         return true; // Return true for now.
     } else {
@@ -111,7 +125,8 @@ startGame = function(gameId) {
  * Adds game id to current player signalling that he 'joined'
  */
 joinGame = function(playerId, gameId) {
-    Players.update(playerId , {$set: {game: gameId, p2: playerId}});
+    Players.update(playerId , {$set: {game: gameId}});
+    Games.update(gameId, {$set: {p2: playerId}})
 }
 
 // TBD
