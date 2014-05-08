@@ -1,0 +1,10 @@
+<template name="gameBoard">
+    <h1>New Game</h1>
+
+    {{#each players}}
+        <li>Player Name: {{_id}}</li>
+    {{/each}}
+
+    <br>
+    <button class="btn btn-default exit-game">Exit Game</button>
+</template>

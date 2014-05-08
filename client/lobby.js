@@ -1,8 +1,6 @@
 Template.lobby.events({
     'click .createGame': function() { // Starts a new game instance
         Meteor.call('createGame', Session.get('currentPlayer'), function(error, result) {
-            console.log("error: ", error, "result: ", result);
-
             if (!error) {
                 Session.set('currentGame', result);
                 Router.go('/game/' + result);

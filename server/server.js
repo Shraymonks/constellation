@@ -19,6 +19,8 @@ Meteor.publish('playersInGame', function(gameId) {
     });
 });
 
+// Server-side methods (interface)
+
 Meteor.methods({
     createGame: function(playerId) {
         // Create game instance
@@ -59,6 +61,8 @@ startGame = function(gameId) {
     // Check to see if there are two players in the game (e.g., two players with same gameId)
     if (Players.find({game: gameId}).count() === 2) {
         Games.update(gameId, {$set: {status: 'active'}});
+
+        // var game = new Game();
 
         return true; // Return true for now.
     } else {
