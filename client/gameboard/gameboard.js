@@ -1,6 +1,8 @@
 Template.gameBoard.events({
     'click .exit-game': function() {
-        Meteor.call('leaveGame', Session.get('currentPlayer'), Session.get('currentGame'), function(error, result) {
+        Meteor.call('leaveGame', Session.get('currentPlayer'),
+        	Session.get('currentGame'), function(error, result) {
+            
             if (!error) {
                 Session.set('currentGame', null);
                 Router.go('/');

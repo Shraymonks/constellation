@@ -6,9 +6,9 @@ Meteor.startup(function() {
 
     Session.set('currentPlayer', playerId);
     Session.setDefault('currentGame', null);
+	Meteor.subscribe('openGames');
 
     Deps.autorun(function() {
-        Meteor.subscribe('openGames');
         Meteor.subscribe('playersInGame', Session.get('currentGame'));
     });
 });
